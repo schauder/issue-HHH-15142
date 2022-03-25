@@ -9,13 +9,13 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Root;
 
+import org.junit.Assert;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.*;
 
 /**
  * This template demonstrates how to develop a test case for Hibernate ORM, using the Java Persistence API.
@@ -58,13 +58,15 @@ public class JPAUnitTestCase {
 
 
 		for (int i = 0; i < 2; i++) {
+			System.out.println("============================");
 			System.out.println("Iteration: " + i);
+			System.out.println("============================");
 
 			final TypedQuery<Person> query = entityManager.createQuery(criteriaQuery); //  <--- This fails when executed for the second time.
 			query.setParameter(pattern, "%_1");
 			final List<Person> result = query.getResultList();
 
-			assertThat(result).hasSize(1);
+			Assert.assertEquals(1,result.size());
 		}
 
 
